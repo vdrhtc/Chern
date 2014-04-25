@@ -5,11 +5,14 @@
  *      Author: gleb
  */
 
+#include "../main.h"
+
 #ifndef PROPER_INTEGRATION_H_
 #define PROPER_INTEGRATION_H_
 
-void traps_integrate(int N);
-void simps_integrate(int N);
-void other_traps_integration(int N);
+double traps_integrate(int N, MathFuncPointer f, int silent);
+double simps_integrate(int N, MathFuncPointer f, int silent);
+void other_traps_integration(int N, MathFuncPointer f);
+double simps_integrate_double_density(int N, MathFuncPointer f, int silent);
 
 #endif /* PROPER_INTEGRATION_H_ */
