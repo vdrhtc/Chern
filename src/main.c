@@ -21,7 +21,7 @@ int main() {
 
 //	newton_solve(-0.1);
 
-//	traps_integrate(600);
-//	simps_integrate(500);
+	traps_integrate(2);
+	simps_integrate(2);
 	return 0;
 }

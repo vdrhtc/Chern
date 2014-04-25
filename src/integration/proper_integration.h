@@ -10,5 +10,6 @@
 
 void traps_integrate(int N);
 void simps_integrate(int N);
+void other_traps_integration(int N);
 
 #endif /* PROPER_INTEGRATION_H_ */
