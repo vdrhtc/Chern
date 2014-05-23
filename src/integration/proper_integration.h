@@ -10,9 +10,9 @@
 #ifndef PROPER_INTEGRATION_H_
 #define PROPER_INTEGRATION_H_
 
-double traps_integrate(int N, MathFuncPointer f, int silent);
-double simps_integrate(int N, MathFuncPointer f, int silent);
-void other_traps_integration(int N, MathFuncPointer f);
-double simps_integrate_double_density(int N, MathFuncPointer f, int silent);
+double traps_integrate(int N, MathFuncPointer f, int silent, double a, double b);
+double simps_integrate(int N, MathFuncPointer f, int silent, double a, double b);
+void other_traps_integration(int N, MathFuncPointer f, double a, double b);
+double simps_integrate_double_density(int N, MathFuncPointer f, int silent, double a, double b);
 
 #endif /* PROPER_INTEGRATION_H_ */
