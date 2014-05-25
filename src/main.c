@@ -11,9 +11,10 @@
 #include "integration/proper_integration.h"
 #include "integration/proper_integration_analyzer.h"
 #include "output/array_printer.h"
-#include "interpolation/interpolation.h"
+#include "interpolation_polynomial/interpolation.h"
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 
 double f1(double x) {
@@ -29,7 +30,7 @@ double f3(double x) {
 }
 
 double f4(double x) {
-	return x;
+	return sin(x);
 }
 
 int main() {
@@ -63,9 +64,28 @@ int main() {
 	 * Задача 7
 	 */
 
-	double a[] = {0, 1, 2, 3};
-	newton_polynomial(&f4, 3, a);
+		double a[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
+		int steps = 100;
+		TwoDimensionalNetPoint* data = calloc(steps, sizeof(TwoDimensionalNetPoint));
 
+		double step = 3.14*4/16/steps;
+		double x;
+		int i=0;
+
+	while(x<3.14*4/16) {
+		TwoDimensionalNetPoint XY;
+		XY.x = x;
+		XY.y = lagrange_polynomial(x, &f4, 4, a);
+		data[i] = XY;
+		x+=step;
+		i++;
+	}
+
+//	printf("%f\n", lagrange_polynomial(3.14*4/16, &f4, 4, a));
+//	printf("%f\n", lagrange_polynomial(3.14/4., &f4, 4, a));
+
+
+	print_net_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
 
 	return 0;
 }

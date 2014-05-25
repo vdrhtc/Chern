@@ -8,7 +8,6 @@
 #ifndef INTERPOLATION_H_
 #define INTERPOLATION_H_
 
-double newton_polynomial(MathFuncPointer f, int degree, double* points);
-
+double lagrange_polynomial(double, MathFuncPointer, int, double*);
 
 #endif /* INTERPOLATION_H_ */

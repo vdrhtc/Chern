@@ -11,14 +11,15 @@
 
 typedef struct {
 	double y;
-	int x;
+	double x;
 
-} TwoDimensionalIntNetPoint;
+} TwoDimensionalNetPoint;
 
-typedef void (*PointPrinter)(TwoDimensionalIntNetPoint);
+typedef void (*PointPrinter)(TwoDimensionalNetPoint);
 
-void print_net_point(TwoDimensionalIntNetPoint);
-void print_net_point_array_to_console(TwoDimensionalIntNetPoint*, int);
+void print_net_point_to_console(TwoDimensionalNetPoint);
+void print_net_point_array_to_console(TwoDimensionalNetPoint*, int);
+void print_net_point_array_to_file(TwoDimensionalNetPoint*, int, char *);
 
 
 
