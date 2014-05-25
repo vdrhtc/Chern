@@ -11,6 +11,7 @@
 #include "integration/proper_integration.h"
 #include "integration/proper_integration_analyzer.h"
 #include "output/array_printer.h"
+#include "interpolation/interpolation.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -25,6 +26,10 @@ double f2(double x) {
 
 double f3(double x) {
 	return (1+exp(-x))/(1+pow(x,(3./2.)));
+}
+
+double f4(double x) {
+	return x;
 }
 
 int main() {
@@ -54,6 +59,12 @@ int main() {
 //	double I_2 = 2./pow(b, 1./2.);
 //	printf("I = I_1 + I_2 = %.10e + %.10e = %.16f", I_1, I_2, I_1+I_2);
 
+	/*
+	 * Задача 7
+	 */
+
+	double a[] = {0, 1, 2, 3};
+	newton_polynomial(&f4, 3, a);
 
 
 	return 0;
