@@ -5,22 +5,31 @@
  *      Author: gleb
  */
 
+
+
 #ifndef ARRAY_PRINTER_H_
 #define ARRAY_PRINTER_H_
-
+#include "../aux.h"
 
 typedef struct {
 	double y;
 	double x;
 
-} TwoDimensionalNetPoint;
+} TwoDimensionalPoint;
 
-typedef void (*PointPrinter)(TwoDimensionalNetPoint);
+typedef struct {
+	double t;
+	Vector U;
+} TwoDimensionalParametricPoint;
 
-void print_point_to_console(TwoDimensionalNetPoint);
-void print_point_array_to_console(TwoDimensionalNetPoint*, int);
-void print_point_array_to_file(TwoDimensionalNetPoint*, int, char *);
-TwoDimensionalNetPoint* zip(double *, double *, int);
+typedef void (*PointPrinter)(TwoDimensionalPoint);
+
+void print_point_to_console(TwoDimensionalPoint);
+void print_point_array_to_console(TwoDimensionalPoint*, int);
+void print_point_array_to_file(TwoDimensionalPoint*, int, char *);
+void print_parametric_point_array_to_file(TwoDimensionalParametricPoint* ,
+		int , char * );
+TwoDimensionalPoint* zip(double *, double *, int);
 
 
 

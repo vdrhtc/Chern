@@ -2,12 +2,12 @@
 #include "array_printer.h"
 #include<stdlib.h>
 
-TwoDimensionalNetPoint* zip(double * X, double *Y, int minLen) {
+TwoDimensionalPoint* zip(double * X, double *Y, int minLen) {
 		int i;
-		TwoDimensionalNetPoint* A = calloc(minLen, sizeof(TwoDimensionalNetPoint));
+		TwoDimensionalPoint* A = calloc(minLen, sizeof(TwoDimensionalPoint));
 
-	for (i = 0; i<minLen; i++) {
-		TwoDimensionalNetPoint a;
+	for (i = 0; i < minLen; i++) {
+		TwoDimensionalPoint a;
 		a.x = X[i];
 		a.y = Y[i];
 		A[i] = a;
@@ -15,39 +15,60 @@ TwoDimensionalNetPoint* zip(double * X, double *Y, int minLen) {
 	return A;
 }
 
-
-
-void print_point_to_console(TwoDimensionalNetPoint point) {
+void print_point_to_console(TwoDimensionalPoint point) {
 
 	printf("(%f, %.16f)", point.x, point.y);
 }
 
-void print_point_array_to_console(TwoDimensionalNetPoint* points, int length) {
+void print_point_array_to_console(TwoDimensionalPoint* points, int length) {
 
 		int i;
 
-	for (i=0; i<length; i++) {
+	for (i = 0; i < length; i++) {
 		print_point_to_console(points[i]);
 		printf(", ");
 	}
 }
 
-void print_point_to_file(TwoDimensionalNetPoint point, FILE *fp) {
+void print_point_to_file(TwoDimensionalPoint point, FILE *fp) {
 
 	fprintf(fp, "(%f, %.16f)", point.x, point.y);
 }
 
-void print_point_array_to_file(TwoDimensionalNetPoint* points, int length, char * filename) {
+void print_point_array_to_file(TwoDimensionalPoint* points, int length,
+		char * filename) {
 
 		int i;
 		FILE* fp = fopen(filename, "w");
 
-
-		fprintf(fp, "[");
-	for (i=0; i<length; i++) {
-		if(i!=0)
+	fprintf(fp, "[");
+	for (i = 0; i < length; i++) {
+		if (i != 0)
 			fprintf(fp, ", ");
 		print_point_to_file(points[i], fp);
+
+	}
+
+	fprintf(fp, "]");
+}
+
+void print_parametric_point_to_file(TwoDimensionalParametricPoint point,
+		FILE *fp) {
+
+	fprintf(fp, "(%f ,(%.16f, %.16f))", point.t, point.U.x, point.U.y);
+}
+
+void print_parametric_point_array_to_file(TwoDimensionalParametricPoint* points,
+		int length, char * filename) {
+
+		int i;
+		FILE* fp = fopen(filename, "w");
+
+	fprintf(fp, "[");
+	for (i = 0; i < length; i++) {
+		if (i != 0)
+			fprintf(fp, ", ");
+		print_parametric_point_to_file(points[i], fp);
 
 	}
 

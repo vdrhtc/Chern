@@ -14,6 +14,8 @@
 #include "interpolation_polynomial/interpolation.h"
 #include "ode/euler/euler.h"
 #include "ode/runge_kutta/runge_kutta.h"
+#include "ode/runge_kutta/vec_runge_kutta.h"
+#include "aux.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -32,11 +34,24 @@ double f3(double x) {
 }
 
 double f4(double x) {
-	return sin(x);
+	return cos(x);
 }
 
 double f5(double x) {
 	return -x-pow(x, 2);
+}
+
+Vector F1(Vector point) {
+	Vector Y;
+	Y.x = 10*point.x-2*point.x*point.y;
+	Y.y = 2*point.x*point.y - 10*point.y;
+	return Y;
+}
+Vector F2(Vector point) {
+	Vector Y;
+	Y.x = -point.x;
+	Y.y = -point.y;
+	return Y;
 }
 
 int main() {
@@ -92,15 +107,16 @@ int main() {
 	 * Задача 8
 	 */
 
-	double ** answer_euler = euler_solve(0, 3, 50, &f5);
-	print_point_array_to_file(zip(answer_euler[1], answer_euler[0], 50), 50, "./src/ode/euler/euler.txt");
-	double ** answer_kutta = runge_kutta_solve(0, 3, 50, &f5);
-	print_point_array_to_file(zip(answer_kutta[1], answer_kutta[0], 50), 50, "./src/ode/runge_kutta/runge_kutta.txt");
+//	double ** answer_euler = euler_solve(0, 3, 50, &f5);
+//	print_point_array_to_file(zip(answer_euler[1], answer_euler[0], 50), 50, "./src/ode/euler/euler.txt");
+//	double ** answer_kutta = runge_kutta_solve(0, 3, 50, &f5);
+//	print_point_array_to_file(zip(answer_kutta[1], answer_kutta[0], 50), 50, "./src/ode/runge_kutta/runge_kutta.txt");
 
 	/*
 	 * Задача 9
 	 */
-
+	TwoDimensionalParametricPoint* a = vec_runge_kutta_solve(0, 5, 10000, &F1);
+	print_parametric_point_array_to_file(a, 10000, "./src/ode/runge_kutta/prey.txt");
 
 
 	return 0;

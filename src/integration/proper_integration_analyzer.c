@@ -5,13 +5,13 @@
 #include "../output/array_printer.h"
 #include "../main.h"
 
-TwoDimensionalNetPoint * get_I_traps_against_N(int N_interval, MathFuncPointer f, double a, double b) {
+TwoDimensionalPoint * get_I_traps_against_N(int N_interval, MathFuncPointer f, double a, double b) {
 
-		TwoDimensionalNetPoint * I_traps_against_N = calloc(2*N_interval, sizeof(TwoDimensionalNetPoint));
+		TwoDimensionalPoint * I_traps_against_N = calloc(2*N_interval, sizeof(TwoDimensionalPoint));
 		int N;
 
 	for (N=1; N<N_interval; N++) {
-		TwoDimensionalNetPoint point;
+		TwoDimensionalPoint point;
 
 		point.x = N;
 		point.y = traps_integrate(N, f, 1, a, b);
@@ -23,14 +23,14 @@ TwoDimensionalNetPoint * get_I_traps_against_N(int N_interval, MathFuncPointer f
 	return I_traps_against_N;
 }
 
-TwoDimensionalNetPoint * get_I_simps_against_N(int N_interval, MathFuncPointer f, double a, double b) {
+TwoDimensionalPoint * get_I_simps_against_N(int N_interval, MathFuncPointer f, double a, double b) {
 
-		TwoDimensionalNetPoint * I_simps_against_N = calloc(N_interval, sizeof(TwoDimensionalNetPoint));
+		TwoDimensionalPoint * I_simps_against_N = calloc(N_interval, sizeof(TwoDimensionalPoint));
 		int N;
 
 	for (N=1; N<N_interval; N++) {
 
-		TwoDimensionalNetPoint point;
+		TwoDimensionalPoint point;
 
 		point.x = N;
 		point.y = simps_integrate_double_density(N, f, 1, a, b);

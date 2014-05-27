@@ -10,5 +10,4 @@
 
 typedef double (*MathFuncPointer)(double);
 
-
 #endif /* MAIN_H_ */
