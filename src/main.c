@@ -12,6 +12,8 @@
 #include "integration/proper_integration_analyzer.h"
 #include "output/array_printer.h"
 #include "interpolation_polynomial/interpolation.h"
+#include "ode/euler/euler.h"
+#include "ode/runge_kutta/runge_kutta.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -31,6 +33,10 @@ double f3(double x) {
 
 double f4(double x) {
 	return sin(x);
+}
+
+double f5(double x) {
+	return -x-pow(x, 2);
 }
 
 int main() {
@@ -64,28 +70,38 @@ int main() {
 	 * Задача 7
 	 */
 
-		double a[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
-		int steps = 100;
-		TwoDimensionalNetPoint* data = calloc(steps, sizeof(TwoDimensionalNetPoint));
+//		double a[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
+//		int steps = 100;
+//		TwoDimensionalNetPoint* data = calloc(steps, sizeof(TwoDimensionalNetPoint));
+//
+//		double step = 3.14*4/16/steps;
+//		double x;
+//		int i=0;
+//
+//	while(x<3.14*4/16) {
+//		TwoDimensionalNetPoint XY;
+//		XY.x = x;
+//		XY.y = lagrange_polynomial(x, &f4, 4, a);
+//		data[i] = XY;
+//		x+=step;
+//		i++;
+//	}
+//	print_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
 
-		double step = 3.14*4/16/steps;
-		double x;
-		int i=0;
+	/*
+	 * Задача 8
+	 */
 
-	while(x<3.14*4/16) {
-		TwoDimensionalNetPoint XY;
-		XY.x = x;
-		XY.y = lagrange_polynomial(x, &f4, 4, a);
-		data[i] = XY;
-		x+=step;
-		i++;
-	}
+	double ** answer_euler = euler_solve(0, 3, 50, &f5);
+	print_point_array_to_file(zip(answer_euler[1], answer_euler[0], 50), 50, "./src/ode/euler/euler.txt");
+	double ** answer_kutta = runge_kutta_solve(0, 3, 50, &f5);
+	print_point_array_to_file(zip(answer_kutta[1], answer_kutta[0], 50), 50, "./src/ode/runge_kutta/runge_kutta.txt");
 
-//	printf("%f\n", lagrange_polynomial(3.14*4/16, &f4, 4, a));
-//	printf("%f\n", lagrange_polynomial(3.14/4., &f4, 4, a));
+	/*
+	 * Задача 9
+	 */
 
 
-	print_net_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
 
 	return 0;
 }

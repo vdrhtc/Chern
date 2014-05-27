@@ -17,10 +17,10 @@ typedef struct {
 
 typedef void (*PointPrinter)(TwoDimensionalNetPoint);
 
-void print_net_point_to_console(TwoDimensionalNetPoint);
-void print_net_point_array_to_console(TwoDimensionalNetPoint*, int);
-void print_net_point_array_to_file(TwoDimensionalNetPoint*, int, char *);
-
+void print_point_to_console(TwoDimensionalNetPoint);
+void print_point_array_to_console(TwoDimensionalNetPoint*, int);
+void print_point_array_to_file(TwoDimensionalNetPoint*, int, char *);
+TwoDimensionalNetPoint* zip(double *, double *, int);
 
 
 
