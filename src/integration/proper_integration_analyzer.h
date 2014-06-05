@@ -11,8 +11,8 @@
 #define PROPER_INTEGRATION_ANALYZER_H_
 
 
-TwoDimensionalPoint * get_I_traps_against_N(int, MathFuncPointer, double a, double b);
-TwoDimensionalPoint * get_I_simps_against_N(int, MathFuncPointer, double a, double b);
+Point2D * get_I_traps_against_N(int, MathFuncPointer, double a, double b);
+Point2D * get_I_simps_against_N(int, MathFuncPointer, double a, double b);
 
 
 #endif /* PROPER_INTEGRATION_ANALYZER_H_ */

@@ -1,34 +1,32 @@
-#include "../../main.h"
 #include "../../aux.h"
 #include "../../output/array_printer.h"
 #include <stdlib.h>
 
-Vector vec_runge_kutta_solution(double t, double lastT, Vector lastV, VecMathFuncPointer f) {
-	Vector k1 = f(sum(lastV, mul(f(lastV), 1./2.*(t-lastT))));
-	return sum(lastV, mul(k1, (t-lastT)));
+Vector2D vec_runge_kutta_solution(double time_step, Vector2D lastV, VecMathFuncPointer2D f) {
+	Vector2D k1 = f(sum(lastV, mul(f(lastV), 1./2.*time_step)));
+	return sum(lastV, mul(k1, (time_step)));
 }
 
 
 
-TwoDimensionalParametricPoint* vec_runge_kutta_solve(double a, double b,
-		int steps, VecMathFuncPointer f) {
+ParametricPoint2D* vec_runge_kutta_solve(double t1, double t2,
+		int steps, VecMathFuncPointer2D f) {
 
-		double t, lastT = 0;
-		Vector lastU; lastU.x = 10; lastU.y = 1;
-		TwoDimensionalParametricPoint* answer = calloc(steps, sizeof(TwoDimensionalParametricPoint));
-		double step = (b - a) / steps;
+		double t = 0;
+		Vector2D lastU; lastU.x1 = 10; lastU.x2 = 1;
+		ParametricPoint2D* answer = calloc(steps, sizeof(ParametricPoint2D));
+		double step = (t2 - t1) / steps;
 		int i = 0;
 
-	answer[i].U = lastU;
-	answer[i].t = lastT;
+	answer[i].X = lastU;
+	answer[i].t = t;
 
-	while (t < b - step) {
-		i++;
-		t += step;
-		lastU = vec_runge_kutta_solution(t, lastT, lastU, f);
-		answer[i].U = lastU;
-		lastT = t;
-		answer[i].t = lastT;
+	while (t < t2 - step) {
+		i++;t+=step;
+
+		lastU = vec_runge_kutta_solution(step, lastU, f);
+		answer[i].X = lastU;
+		answer[i].t = t;
 
 	}
 	return answer;

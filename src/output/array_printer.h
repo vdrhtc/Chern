@@ -12,24 +12,24 @@
 #include "../aux.h"
 
 typedef struct {
-	double y;
-	double x;
+	double x2;
+	double x1;
 
-} TwoDimensionalPoint;
+} Point2D;
 
 typedef struct {
 	double t;
-	Vector U;
-} TwoDimensionalParametricPoint;
+	Vector2D X;
+} ParametricPoint2D;
 
-typedef void (*PointPrinter)(TwoDimensionalPoint);
+typedef void (*PointPrinter)(Point2D);
 
-void print_point_to_console(TwoDimensionalPoint);
-void print_point_array_to_console(TwoDimensionalPoint*, int);
-void print_point_array_to_file(TwoDimensionalPoint*, int, char *);
-void print_parametric_point_array_to_file(TwoDimensionalParametricPoint* ,
+void print_point_to_console(Point2D);
+void print_point_array_to_console(Point2D*, int);
+void print_point_array_to_file(Point2D*, int, char *);
+void print_parametric_point_array_to_file(ParametricPoint2D* ,
 		int , char * );
-TwoDimensionalPoint* zip(double *, double *, int);
+Point2D* zip(double *, double *, int);
 
 
 

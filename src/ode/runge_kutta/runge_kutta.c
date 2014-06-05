@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<math.h>
 #include<stdlib.h>
-#include "../../main.h"
+#include "../../aux.h"
 
 
 double runge_kutta_solution(double t, double lastT, double lastX, MathFuncPointer f) {

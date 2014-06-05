@@ -8,6 +8,7 @@
 #ifndef EULER_H_
 #define EULER_H_
 
-double ** euler_solve(double, double, int, MathFuncPointer);
+
+Point2D* euler_solve(double, double, int, MathFuncPointer);
 
 #endif /* EULER_H_ */

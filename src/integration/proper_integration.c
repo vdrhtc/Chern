@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<math.h>
 #include "proper_integration.h"
-#include "../main.h"
+#include "../aux.h"
 
 
 double simps_integrate(int N, MathFuncPointer f, int silent, double a, double b) {

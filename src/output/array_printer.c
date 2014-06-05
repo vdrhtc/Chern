@@ -2,25 +2,25 @@
 #include "array_printer.h"
 #include<stdlib.h>
 
-TwoDimensionalPoint* zip(double * X, double *Y, int minLen) {
+Point2D* zip(double * X, double *Y, int minLen) {
 		int i;
-		TwoDimensionalPoint* A = calloc(minLen, sizeof(TwoDimensionalPoint));
+		Point2D* A = calloc(minLen, sizeof(Point2D));
 
 	for (i = 0; i < minLen; i++) {
-		TwoDimensionalPoint a;
-		a.x = X[i];
-		a.y = Y[i];
+		Point2D a;
+		a.x1 = X[i];
+		a.x2 = Y[i];
 		A[i] = a;
 	}
 	return A;
 }
 
-void print_point_to_console(TwoDimensionalPoint point) {
+void print_point_to_console(Point2D point) {
 
-	printf("(%f, %.16f)", point.x, point.y);
+	printf("(%f, %.16f)", point.x1, point.x2);
 }
 
-void print_point_array_to_console(TwoDimensionalPoint* points, int length) {
+void print_point_array_to_console(Point2D* points, int length) {
 
 		int i;
 
@@ -30,12 +30,12 @@ void print_point_array_to_console(TwoDimensionalPoint* points, int length) {
 	}
 }
 
-void print_point_to_file(TwoDimensionalPoint point, FILE *fp) {
+void print_point_to_file(Point2D point, FILE *fp) {
 
-	fprintf(fp, "(%f, %.16f)", point.x, point.y);
+	fprintf(fp, "(%f, %.16f)", point.x1, point.x2);
 }
 
-void print_point_array_to_file(TwoDimensionalPoint* points, int length,
+void print_point_array_to_file(Point2D* points, int length,
 		char * filename) {
 
 		int i;
@@ -52,13 +52,13 @@ void print_point_array_to_file(TwoDimensionalPoint* points, int length,
 	fprintf(fp, "]");
 }
 
-void print_parametric_point_to_file(TwoDimensionalParametricPoint point,
+void print_parametric_point_to_file(ParametricPoint2D point,
 		FILE *fp) {
 
-	fprintf(fp, "(%f ,(%.16f, %.16f))", point.t, point.U.x, point.U.y);
+	fprintf(fp, "(%f ,(%.16f, %.16f))", point.t, point.X.x1, point.X.x2);
 }
 
-void print_parametric_point_array_to_file(TwoDimensionalParametricPoint* points,
+void print_parametric_point_array_to_file(ParametricPoint2D* points,
 		int length, char * filename) {
 
 		int i;

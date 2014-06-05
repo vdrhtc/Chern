@@ -5,7 +5,7 @@
  *      Author: gleb
  */
 
-#include "../main.h"
+#include "../aux.h"
 
 #ifndef PROPER_INTEGRATION_H_
 #define PROPER_INTEGRATION_H_

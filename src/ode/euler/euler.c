@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<math.h>
 #include<stdlib.h>
-#include "../../main.h"
+#include "../../output/array_printer.h"
+#include "../../aux.h"
 
 
 double euler_solution(double t, double lastT, double lastX, MathFuncPointer f) {
@@ -9,27 +10,23 @@ double euler_solution(double t, double lastT, double lastX, MathFuncPointer f) {
 }
 
 
-double ** euler_solve(double a, double b, int steps, MathFuncPointer f) {
+Point2D* euler_solve(double a, double b, int steps, MathFuncPointer f) {
 
 		double t, lastX = 1, lastT = 0;
-		double * Xs = calloc(steps, sizeof(double));
-		double * Ts = calloc(steps, sizeof(double));
-		double ** answer = calloc(2, sizeof(double*));
+		Point2D* points = calloc(steps, sizeof(Point2D));
 		double step = (b-a)/steps;
 		int i = 0;
 
-	Xs[i] = lastX;
-	Ts[i] = lastT;
+	points[i].x1 = lastX;
+	points[i].x2 = lastT;
 	while(t < b-step) {
 		i++;
 		t+=step;
 		lastX = euler_solution(t, lastT, lastX, f);
-		Xs[i] = lastX;
+		points[i].x1 = lastX;
 		lastT = t;
-		Ts[i] = lastT;
+		points[i].x2 = lastT;
 
 	}
-	answer[0] = Xs;
-	answer[1] = Ts;
-	return answer;
+	return points;
 }

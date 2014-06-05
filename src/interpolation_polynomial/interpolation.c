@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<math.h>
-#include "../main.h"
+#include "../aux.h"
 #include "interpolation.h"
 #include <stdlib.h>
 

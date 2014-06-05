@@ -8,7 +8,7 @@
 #ifndef VEC_RUNGE_KUTTA_H_
 #define VEC_RUNGE_KUTTA_H_
 
-TwoDimensionalParametricPoint* vec_runge_kutta_solve(double, double, int,
-		VecMathFuncPointer);
+ParametricPoint2D* vec_runge_kutta_solve(double, double, int,
+		VecMathFuncPointer2D);
 
 #endif /* VEC_RUNGE_KUTTA_H_ */
