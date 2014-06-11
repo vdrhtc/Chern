@@ -37,11 +37,12 @@ ParametricPoint2D* imp_vec_euler_solve(double t1, double t2, int steps,
 		i++;t+=step;
 
 //		if(t>7.96)
-		printf("%f\n" ,t);
+//		printf("t= %f\n" ,t);
 		lastX = imp_vec_euler_solution(lastX, F);
 		answer[i].X = lastX;
 		answer[i].t = t;
 
 	}
+	printf("Done\n");
 	return answer;
 }

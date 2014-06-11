@@ -17,6 +17,8 @@
 #include "ode/runge_kutta/runge_kutta.h"
 #include "ode/runge_kutta/vec_runge_kutta.h"
 #include "ode/euler/imp_vec_euler.h"
+#include "output/matrix_printer.h"
+#include "linear_solving/tridiagonal/tridiagonal_solving.h"
 #include "aux.h"
 #include <stdio.h>
 #include <math.h>
@@ -61,6 +63,32 @@ Vector2D F3(Vector2D point) {
 	F.x1 = 998*point.x1+1998*point.x2;
 	F.x2 = -999*point.x1-1999*point.x2;
 	return F;
+}
+
+LinearSystem fillTridiagonalMatrixAndOrdinal(MathFuncPointer rightPart, int steps, double a, double b) {
+
+		int i, dimension = steps;
+		SquareMatrix M = getSquareMatrix(dimension);
+		NDVector V = getNDVector(dimension);
+		double step = (b-a)/steps;
+
+	V.data[0] = 0;
+	for (i=1; i<dimension-1; i++) {
+		V.data[i] = step*step*rightPart(a+i*step);
+	}
+	V.data[dimension-1] = 0;
+
+	M.data[0][0] = 1;
+	for (i=1; i<dimension-1; i++) {
+		M.data[i][i-1] = 1;
+		M.data[i][i] = -2;
+		M.data[i][i+1] = 1;
+	}
+	M.data[dimension-1][dimension-1] = 1;
+	LinearSystem L;
+	L.M = M;
+	L.V = V;
+	return L;
 }
 
 int main() {
@@ -124,7 +152,7 @@ int main() {
 	/*
 	 * Задача 9
 	 */
-//	ParametricPoint2D* a = vec_runge_kutta_solve(0, 5, 10000, &F1);
+//	ParametricPoint2D* a = vec_runge_kutta_solve(0, 1, 10000, &F3);
 //	print_parametric_point_array_to_file(a, 10000, "./src/ode/runge_kutta/prey.txt");
 
 
@@ -132,9 +160,25 @@ int main() {
 	 * Задача 10
 	 */
 
-	int steps = 1e4;
-	ParametricPoint2D* a = imp_vec_euler_solve(0, 1, steps, &F3);
-	print_parametric_point_array_to_file(a, steps, "./src/ode/euler/hard.txt");
+//	int steps = 1e4;
+//	ParametricPoint2D* a = imp_vec_euler_solve(0, 10, steps, &F3);
+//	print_parametric_point_array_to_file(a, steps, "./src/ode/euler/hard.txt");
+
+	/*
+	 *Задача 11
+	 */
+
+	double a = 0, b = 3.141529;
+	int i;
+	int steps = 100;
+
+	LinearSystem L = fillTridiagonalMatrixAndOrdinal(sin, steps, a, b);
+	NDVector u_s = tridiagonal_solve(L.M, L.V);
+
+	double* x_s = calloc(steps, sizeof(double));
+	for(i=0; i<steps; i++)
+		x_s[i] = i*(b-a)/steps;
+	print_point_array_to_file(zip(x_s, u_s.data, u_s.dimension), u_s.dimension, "./src/linear_solving/sin.txt");
 
 	return 0;
 }

@@ -13,7 +13,7 @@ ParametricPoint2D* vec_runge_kutta_solve(double t1, double t2,
 		int steps, VecMathFuncPointer2D f) {
 
 		double t = 0;
-		Vector2D lastU; lastU.x1 = 10; lastU.x2 = 1;
+		Vector2D lastU; lastU.x1 = 2; lastU.x2 = 1;
 		ParametricPoint2D* answer = calloc(steps, sizeof(ParametricPoint2D));
 		double step = (t2 - t1) / steps;
 		int i = 0;
