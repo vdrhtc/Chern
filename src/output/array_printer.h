@@ -11,16 +11,7 @@
 #define ARRAY_PRINTER_H_
 #include "../aux.h"
 
-typedef struct {
-	double x2;
-	double x1;
 
-} Point2D;
-
-typedef struct {
-	double t;
-	Vector2D X;
-} ParametricPoint2D;
 
 typedef void (*PointPrinter)(Point2D);
 
@@ -30,7 +21,7 @@ void print_point_array_to_file(Point2D*, int, char *);
 void print_parametric_point_array_to_file(ParametricPoint2D* ,
 		int , char * );
 Point2D* zip(double *, double *, int);
-
+void print_TimeLayer2D_array_to_file(TimeLayer2D* TLs, int length_t, int length_x, char* filename);
 
 
 

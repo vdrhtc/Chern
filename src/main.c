@@ -19,6 +19,7 @@
 #include "ode/euler/imp_vec_euler.h"
 #include "output/matrix_printer.h"
 #include "linear_solving/tridiagonal/tridiagonal_solving.h"
+#include "explicit_pde/hopf.h"
 #include "aux.h"
 #include <stdio.h>
 #include <math.h>
@@ -89,6 +90,15 @@ LinearSystem fillTridiagonalMatrixAndOrdinal(MathFuncPointer rightPart, int step
 	L.M = M;
 	L.V = V;
 	return L;
+}
+
+double u_x_0(double x) {
+	return exp(-pow(x,2)/2);
+}
+
+
+double u_0_t(double t) {
+	return exp(-t-5*5/2);
 }
 
 int main() {
@@ -168,17 +178,28 @@ int main() {
 	 *Задача 11
 	 */
 
-	double a = 0, b = 3.141529;
-	int i;
-	int steps = 100;
+//	double a = 0, b = 3.141529;
+//	int i;
+//	int steps = 100;
+//
+//	LinearSystem L = fillTridiagonalMatrixAndOrdinal(sin, steps, a, b);
+//	NDVector u_s = tridiagonal_solve(L.M, L.V);
+//
+//	double* x_s = calloc(steps, sizeof(double));
+//	for(i=0; i<steps; i++)
+//		x_s[i] = i*(b-a)/steps;
+//	print_point_array_to_file(zip(x_s, u_s.data, u_s.dimension), u_s.dimension, "./src/linear_solving/sin.txt");
 
-	LinearSystem L = fillTridiagonalMatrixAndOrdinal(sin, steps, a, b);
-	NDVector u_s = tridiagonal_solve(L.M, L.V);
 
-	double* x_s = calloc(steps, sizeof(double));
-	for(i=0; i<steps; i++)
-		x_s[i] = i*(b-a)/steps;
-	print_point_array_to_file(zip(x_s, u_s.data, u_s.dimension), u_s.dimension, "./src/linear_solving/sin.txt");
+	/*
+	 * Задача 12
+	 */
 
+	double a = -5, b=10;
+	double t0 = 0, t1 = 3;
+	double h_x = 0.01, tau = 0.01;
+
+	TimeLayer2D* TLs = solve_hopf(&u_0_t, &u_x_0, a, b, t0, t1, h_x, tau);
+	print_TimeLayer2D_array_to_file(TLs, (t1-t0)/tau, (b-a)/h_x, "./src/explicit_pde/hopf.txt");
 	return 0;
 }

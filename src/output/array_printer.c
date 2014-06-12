@@ -74,3 +74,35 @@ void print_parametric_point_array_to_file(ParametricPoint2D* points,
 
 	fprintf(fp, "]");
 }
+
+void print_point_array_to_file_pointer(Point2D* points, int length,
+		FILE* fp) {
+
+		int i;
+
+	fprintf(fp, "[");
+	for (i = 0; i < length; i++) {
+		if (i != 0)
+			fprintf(fp, ", ");
+		print_point_to_file(points[i], fp);
+
+	}
+
+	fprintf(fp, "]");
+}
+
+void print_TimeLayer2D_array_to_file(TimeLayer2D* TLs, int length_t, int length_x, char* filename) {
+
+		int n;
+		FILE* fp = fopen(filename, "w");
+
+	fprintf(fp, "{");
+	for(n=0; n<length_t; n++) {
+		fprintf(fp, "%f:", TLs[n].t);
+		print_point_array_to_file_pointer(TLs[n].layer2D, length_x, fp);
+		fprintf(fp, ",\n");
+	}
+	fprintf(fp, "}");
+
+
+}
