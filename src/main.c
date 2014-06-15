@@ -107,9 +107,22 @@ double modified_sin(double x) {
 }
 
 int main() {
+
+	/*
+	 * Задача 1
+	 */
+
 //	calculate_mantissa_length();
 
+	/*
+	 * Задача 2
+	 */
+
 //	summarize();
+
+	/*
+	 * Задача 3
+	 */
 
 //	bisec_solve(-1, 1);
 
@@ -117,7 +130,12 @@ int main() {
 
 //	newton_solve(-0.1);
 
+	/*
+	 * Задача 4
+	 */
 //	traps_integrate(16, &f1, 0, -1, 1);
+//	simps_integrate(16, &f1, 0, -1, 1);
+//	print_point_array_to_file(get_I_simps_against_N(20,&f1,-1, 1),10,"./src/integration/simps.txt");
 
 	/*
 	 * Задача 5
@@ -137,27 +155,27 @@ int main() {
 	 * Задача 7
 	 */
 
-		double points[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
-		int steps = 100;
-
-	Point2D* data = interpolate(&cos,4, points, 0, M_PI/4, steps);
-
-	print_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
+//		double points[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
+//		int steps = 100;
+//
+//	Point2D* data = interpolate(&cos,4, points, 0, M_PI/4, steps);
+//
+//	print_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
 
 	/*
 	 * Задача 8
 	 */
 
-	Point2D* answer_euler = euler_solve(0, 3, 50, &f5);
-	print_point_array_to_file(answer_euler, 50, "./src/ode/euler/euler.txt");
-	double ** answer_kutta = runge_kutta_solve(0, 3, 50, &f5);
-	print_point_array_to_file(zip(answer_kutta[1], answer_kutta[0], 50), 50, "./src/ode/runge_kutta/runge_kutta.txt");
+//	Point2D* answer_euler = euler_solve(0, 3, 50, &f5);
+//	print_point_array_to_file(answer_euler, 50, "./src/ode/euler/euler.txt");
+//	double ** answer_kutta = runge_kutta_solve(0, 3, 50, &f5);
+//	print_point_array_to_file(zip(answer_kutta[1], answer_kutta[0], 50), 50, "./src/ode/runge_kutta/runge_kutta.txt");
 
 	/*
 	 * Задача 9
 	 */
-	ParametricPoint2D* a_vec_kutta = vec_runge_kutta_solve(0, 1, 10000, &F3);
-	print_parametric_point_array_to_file(a_vec_kutta, 10000, "./src/ode/runge_kutta/prey.txt");
+//	ParametricPoint2D* a_vec_kutta = vec_runge_kutta_solve(0, 1, 10000, &F3);
+//	print_parametric_point_array_to_file(a_vec_kutta, 10000, "./src/ode/runge_kutta/prey.txt");
 
 
 	/*
