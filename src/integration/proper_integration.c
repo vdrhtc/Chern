@@ -14,14 +14,14 @@ double simps_integrate(int N, MathFuncPointer f, int silent, double a, double b)
 		double h = (b - a) / N;
 		int n;
 
-	double I = 0;
+	double Integral = 0;
 	for (n = 0; n < N - 1; n += 2) {
-		I += (f(a + h * n) + 4. * f(a + (n + 1) * h)
+		Integral += (f(a + h * n) + 4. * f(a + (n + 1) * h)
 				+ f(a + (n + 2) * h)) * h / 3.;
 	}
 	if(!silent)
-		printf("I_simps = %.16f\n", I);
-	return I;
+		printf("I_simps = %.16f\n", Integral);
+	return Integral;
 }
 
 double traps_integrate(int N, MathFuncPointer f, int silent, double a, double b) {
@@ -29,13 +29,13 @@ double traps_integrate(int N, MathFuncPointer f, int silent, double a, double b)
 		double h = (b - a) / N;
 		int n;
 
-	double I = 0;
+	double Integral = 0;
 	for (n = 0; n < N; n++) {
-		I += 0.5 * (f(a + h * n) + f(a + (n + 1) * h)) * h;
+		Integral += 0.5 * (f(a + h * n) + f(a + (n + 1) * h)) * h;
 	}
 	if (!silent)
-		printf("I_traps = %.16f\n", I);
-	return I;
+		printf("I_traps = %.16f\n", Integral);
+	return Integral;
 }
 
 double simps_integrate_double_density(int N, MathFuncPointer f, int silent, double a, double b) {
@@ -43,14 +43,14 @@ double simps_integrate_double_density(int N, MathFuncPointer f, int silent, doub
 		double h = (b - a) / N;
 		int n;
 
-	double I = 0;
+	double Integral = 0;
 	for (n = 0; n < N ; n += 1) {
-		I += (f(a + h * n) + 4. * f(a + (n + 0.5) * h)
+		Integral += (f(a + h * n) + 4. * f(a + (n + 0.5) * h)
 				+ f(a + (n + 1) * h)) * h / 6.;
 	}
 	if(!silent)
-		printf("I_simps = %.16f\n", I);
-	return I;
+		printf("I_simps = %.16f\n", Integral);
+	return Integral;
 }
 
 void other_traps_integration(int N, MathFuncPointer f, double a, double b) {
@@ -58,10 +58,10 @@ void other_traps_integration(int N, MathFuncPointer f, double a, double b) {
 		double h = (b - a) / N;
 		int n;
 
-	double I = h * (0.5 * f(a) + 0.5 * f(b));
+	double Integral = h * (0.5 * f(a) + 0.5 * f(b));
 	for (n = 1; n < N; n++) {
-		I += h * f(a + h * n);
+		Integral += h * f(a + h * n);
 	}
 
-	printf("I= %.16f\n", I);
+	printf("I= %.16f\n", Integral);
 }

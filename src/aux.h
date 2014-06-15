@@ -5,11 +5,15 @@
  *      Author: gleb
  */
 
-
+#include<complex.h>
 
 #ifndef AUX_H_
 #define AUX_H_
 
+typedef struct {
+	double complex Z;
+	double k;
+} ParametricComplexPoint;
 
 typedef struct {
 	double x2;
