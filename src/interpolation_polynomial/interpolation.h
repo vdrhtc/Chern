@@ -9,5 +9,5 @@
 #define INTERPOLATION_H_
 
 double lagrange_polynomial(double, MathFuncPointer, int, double*);
-
+Point2D* interpolate(MathFuncPointer f, int degree, double* points, double a, double b, int steps);
 #endif /* INTERPOLATION_H_ */

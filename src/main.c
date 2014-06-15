@@ -137,38 +137,27 @@ int main() {
 	 * Задача 7
 	 */
 
-//		double a[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
-//		int steps = 100;
-//		TwoDimensionalNetPoint* data = calloc(steps, sizeof(TwoDimensionalNetPoint));
-//
-//		double step = 3.14*4/16/steps;
-//		double x;
-//		int i=0;
-//
-//	while(x<3.14*4/16) {
-//		TwoDimensionalNetPoint XY;
-//		XY.x = x;
-//		XY.y = lagrange_polynomial(x, &f4, 4, a);
-//		data[i] = XY;
-//		x+=step;
-//		i++;
-//	}
-//	print_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
+		double points[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
+		int steps = 100;
+
+	Point2D* data = interpolate(&cos,4, points, 0, M_PI/4, steps);
+
+	print_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
 
 	/*
 	 * Задача 8
 	 */
 
-//	TwoDimensionalPoint* answer_euler = euler_solve(0, 3, 50, &f5);
-//	print_point_array_to_file(answer_euler, 50, "./src/ode/euler/euler.txt");
-//	double ** answer_kutta = runge_kutta_solve(0, 3, 50, &f5);
-//	print_point_array_to_file(zip(answer_kutta[1], answer_kutta[0], 50), 50, "./src/ode/runge_kutta/runge_kutta.txt");
+	Point2D* answer_euler = euler_solve(0, 3, 50, &f5);
+	print_point_array_to_file(answer_euler, 50, "./src/ode/euler/euler.txt");
+	double ** answer_kutta = runge_kutta_solve(0, 3, 50, &f5);
+	print_point_array_to_file(zip(answer_kutta[1], answer_kutta[0], 50), 50, "./src/ode/runge_kutta/runge_kutta.txt");
 
 	/*
 	 * Задача 9
 	 */
-//	ParametricPoint2D* a = vec_runge_kutta_solve(0, 1, 10000, &F3);
-//	print_parametric_point_array_to_file(a, 10000, "./src/ode/runge_kutta/prey.txt");
+	ParametricPoint2D* a_vec_kutta = vec_runge_kutta_solve(0, 1, 10000, &F3);
+	print_parametric_point_array_to_file(a_vec_kutta, 10000, "./src/ode/runge_kutta/prey.txt");
 
 
 	/*
@@ -176,8 +165,8 @@ int main() {
 	 */
 
 //	int steps = 1e4;
-//	ParametricPoint2D* a = imp_vec_euler_solve(0, 10, steps, &F3);
-//	print_parametric_point_array_to_file(a, steps, "./src/ode/euler/hard.txt");
+//	ParametricPoint2D* a_imp_vec_euler = imp_vec_euler_solve(0, 1, steps, &F3);
+//	print_parametric_point_array_to_file(a_imp_vec_euler, steps, "./src/ode/euler/hard.txt");
 
 	/*
 	 *Задача 11
