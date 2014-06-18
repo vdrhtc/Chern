@@ -99,7 +99,11 @@ double u_x_0(double x) {
 
 
 double u_0_t(double t) {
-	return exp(-t-5*5/2);
+	return 0;
+}
+
+double u_1_t(double t) {
+	return 0;
 }
 
 double modified_sin(double x) {
@@ -207,12 +211,12 @@ int main() {
 	 * Задача 12
 	 */
 
-//	double a = -5, b=10;
-//	double t0 = 0, t1 = 3;
-//	double h_x = 0.01, tau = 0.01;
-//
-//	TimeLayer2D* TLs = solve_hopf(&u_0_t, &u_x_0, a, b, t0, t1, h_x, tau);
-//	print_TimeLayer2D_array_to_file(TLs, (t1-t0)/tau, (b-a)/h_x, "./src/explicit_pde/hopf.txt");
+	double a = -5, b=10;
+	double t0 = 0, t1 = 1.1;
+	double h_x = 0.015, tau = 0.001;
+
+	TimeLayer2D* TLs = solve_hopf(&u_0_t, &u_1_t, &u_x_0, a, b, t0, t1, h_x, tau);
+	print_TimeLayer2D_array_to_file(TLs, (t1-t0)/tau, (b-a)/h_x, "./src/explicit_pde/hopf.txt");
 
 	/*
 	 * Задача 13
