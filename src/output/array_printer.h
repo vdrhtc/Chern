@@ -22,7 +22,7 @@ void print_parametric_point_array_to_file(ParametricPoint2D* ,
 		int , char * );
 Point2D* zip(double *, double *, int);
 void print_TimeLayer2D_array_to_file(TimeLayer2D* TLs, int length_t, int length_x, char* filename);
-
+void print_TimeLayer3D_array_to_file(TimeLayer3D* TLs, int length_t, char* filename) ;
 
 
 #endif /* ARRAY_PRINTER_H_ */

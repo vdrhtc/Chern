@@ -3,26 +3,40 @@
 #include<stdlib.h>
 #include "aux.h"
 
-double vec_abs(Vector2D V) {
+
+Layer3D init_layer3D(int steps_x, int steps_y, double h_x, double h_y, double x_0, double y_0) {
+	Layer3D L;
+	L.h_x = h_x; L.h_y = h_y; L.steps_x = steps_x; L.steps_y = steps_y; L.x_0 = x_0; L.y_0=y_0;
+	L.values = calloc(steps_x, sizeof(double*));
+
+		int i;
+
+	for (i=0; i<steps_x; i++) {
+		L.values[i] = calloc(steps_y, sizeof(double));
+	}
+	return L;
+}
+
+double vec_abs(Vector V) {
 	return sqrt(V.x1*V.x1+V.x2*V.x2);
 }
 
-Vector2D mul(Vector2D V, double factor) {
-	Vector2D V1;
+Vector mul(Vector V, double factor) {
+	Vector V1;
 	V1.x1 = V.x1*factor;
 	V1.x2 = V.x2*factor;
 	return V1;
 }
-Vector2D sum(Vector2D V1, Vector2D V2) {
-	Vector2D sum;
+Vector sum(Vector V1, Vector V2) {
+	Vector sum;
 	sum.x1 = V1.x1 + V2.x1;
 	sum.x2 = V1.x2 + V2.x2;
 	return sum;
 
 }
 
-Vector2D sub(Vector2D V1, Vector2D V2) {
-	Vector2D sub;
+Vector sub(Vector V1, Vector V2) {
+	Vector sub;
 	sub.x1 = V1.x1 - V2.x1;
 	sub.x2 = V1.x2 - V2.x2;
 	return sub;

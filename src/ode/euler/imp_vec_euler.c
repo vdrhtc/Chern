@@ -6,14 +6,14 @@
 #include "../../equation_solving/vec_solve.h"
 
 VecMathFuncPointer2D equation_right_side;
-Vector2D prevX;
+Vector prevX;
 double time_step;
 
-Vector2D system_vec_func(Vector2D X) {
+Vector system_vec_func(Vector X) {
 	return sub(mul(sub(X, prevX), 1/time_step), equation_right_side(X));
 }
 
-Vector2D imp_vec_euler_solution(Vector2D lastX, VecMathFuncPointer2D f) {
+Vector imp_vec_euler_solution(Vector lastX, VecMathFuncPointer2D f) {
 	equation_right_side = f;
 	prevX = lastX;
 //	Vector2D testX; testX.x1 = 10; testX.x2=-1+1e-9;
@@ -25,7 +25,7 @@ ParametricPoint2D* imp_vec_euler_solve(double t1, double t2, int steps,
 		VecMathFuncPointer2D F) {
 
 		double t = 0;
-		Vector2D lastX; lastX.x1 = 2; lastX.x2 = 1;
+		Vector lastX; lastX.x1 = 2; lastX.x2 = 1;
 		ParametricPoint2D* answer = calloc(steps, sizeof(ParametricPoint2D));
 		double step = time_step = (t2 - t1) / steps;
 		int i = 0;

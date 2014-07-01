@@ -22,27 +22,45 @@ typedef struct {
 } Point2D;
 
 typedef struct {
+	double x1;
+	double x2;
+	double x3;
+} Point3D;
+
+typedef struct {
 	double t;
 	Point2D* layer2D;
 } TimeLayer2D;
 
 typedef struct {
+	double** values;
+	int steps_x, steps_y;
+	double h_x, h_y, x_0, y_0;
+} Layer3D;
+
+typedef struct {
+	double t;
+	Layer3D layer3D;
+} TimeLayer3D;
+
+typedef struct {
 	double x1;
 	double x2;
-} Vector2D;
+} Vector;
 
 
 typedef struct {
 	double t;
-	Vector2D X;
+	Vector X;
 } ParametricPoint2D;
-typedef Vector2D (*VecMathFuncPointer2D)(Vector2D);
+typedef Vector (*VecMathFuncPointer2D)(Vector);
 typedef double (*MathFuncPointer)(double);
+typedef double (*MathFuncPointer2D)(double, double);
 
-Vector2D mul(Vector2D, double);
-Vector2D sum(Vector2D, Vector2D);
-Vector2D sub(Vector2D, Vector2D);
-double vec_abs(Vector2D);
+Vector mul(Vector, double);
+Vector sum(Vector, Vector);
+Vector sub(Vector, Vector);
+double vec_abs(Vector);
 
 typedef struct {
 	double** data;
@@ -66,5 +84,6 @@ SquareMatrix sumRows(SquareMatrix, int row1, int row2);
 SquareMatrix copySquareMatrix(SquareMatrix);
 NDVector copyNDVector(NDVector);
 NDVector getNDVector(int);
+Layer3D init_layer3D(int steps_x, int steps_y, double h_x, double h_y, double x_0, double y_0);
 
 #endif /* AUX_H_ */

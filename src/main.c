@@ -20,6 +20,7 @@
 #include "output/matrix_printer.h"
 #include "linear_solving/tridiagonal/tridiagonal_solving.h"
 #include "explicit_pde/hopf.h"
+#include "pde/heatL1D.h"
 #include "dft/dft.h"
 #include "aux.h"
 #include <stdio.h>
@@ -47,36 +48,36 @@ double f5(double x) {
 	return -x-pow(x, 2);
 }
 
-Vector2D F1(Vector2D point) {
-	Vector2D Y;
+Vector F1(Vector point) {
+	Vector Y;
 	Y.x1 = 10*point.x1-2*point.x1*point.x2;
 	Y.x2 = 2*point.x1*point.x2 - 10*point.x2;
 	return Y;
 }
-Vector2D F2(Vector2D point) {
-	Vector2D Y;
+Vector F2(Vector point) {
+	Vector Y;
 	Y.x1 = point.x1*10-pow(point.x2,2)+1;
 	Y.x2 = point.x1+point.x2;
 	return Y;
 }
 
-Vector2D F3(Vector2D point) {
-	Vector2D F;
+Vector F3(Vector point) {
+	Vector F;
 	F.x1 = 998*point.x1+1998*point.x2;
 	F.x2 = -999*point.x1-1999*point.x2;
 	return F;
 }
 
-LinearSystem fillTridiagonalMatrixAndOrdinal(MathFuncPointer rightPart, int steps, double a, double b) {
+LinearSystem fillTridiagonalMatrixAndOrdinal(MathFuncPointer rightPart, double h, double a, double b) {
 
-		int i, dimension = steps;
+		int steps = (b-a)/h+1;
+		int i, dimension=steps;
 		SquareMatrix M = getSquareMatrix(dimension);
 		NDVector V = getNDVector(dimension);
-		double step = (b-a)/steps;
 
 	V.data[0] = 0;
 	for (i=1; i<dimension-1; i++) {
-		V.data[i] = step*step*rightPart(a+i*step);
+		V.data[i] = h*h*rightPart(a+i*h);
 	}
 	V.data[dimension-1] = 0;
 
@@ -110,6 +111,19 @@ double modified_sin(double x) {
 	return pow(sin(50*x), 1)+sin(x*30.5);
 }
 
+
+double f_x(double x) {
+	return 1-pow(x,2);
+}
+
+double f_y(double y) {
+	return 1-pow(y,2);
+}
+
+double u_i(double x, double y) {
+	return 0;
+}
+
 int main() {
 
 	/*
@@ -139,7 +153,7 @@ int main() {
 	 */
 //	traps_integrate(16, &f1, 0, -1, 1);
 //	simps_integrate(16, &f1, 0, -1, 1);
-//	print_point_array_to_file(get_I_simps_against_N(20,&f1,-1, 1),10,"./src/integration/simps.txt");
+//	print_point_array_to_file(get_I_traps_against_N(40,&f1,-1, 1), 40,"./src/integration/traps.txt");
 
 	/*
 	 * Задача 5
@@ -193,17 +207,18 @@ int main() {
 	/*
 	 *Задача 11
 	 */
-
-//	double a = 0, b = 3.141529;
-//	int i;
-//	int steps = 100;
 //
-//	LinearSystem L = fillTridiagonalMatrixAndOrdinal(sin, steps, a, b);
+//	double a = 0, b = M_PI;
+//	int i;
+//	double h = 0.031415;
+//	int steps = (b-a)/h+1;
+//
+//	LinearSystem L = fillTridiagonalMatrixAndOrdinal(sin, h, a, b);
 //	NDVector u_s = tridiagonal_solve(L.M, L.V);
 //
 //	double* x_s = calloc(steps, sizeof(double));
 //	for(i=0; i<steps; i++)
-//		x_s[i] = i*(b-a)/steps;
+//		x_s[i] = i*h;
 //	print_point_array_to_file(zip(x_s, u_s.data, u_s.dimension), u_s.dimension, "./src/linear_solving/sin.txt");
 
 
@@ -211,12 +226,12 @@ int main() {
 	 * Задача 12
 	 */
 
-	double a = -5, b=10;
-	double t0 = 0, t1 = 1.1;
-	double h_x = 0.015, tau = 0.001;
-
-	TimeLayer2D* TLs = solve_hopf(&u_0_t, &u_1_t, &u_x_0, a, b, t0, t1, h_x, tau);
-	print_TimeLayer2D_array_to_file(TLs, (t1-t0)/tau, (b-a)/h_x, "./src/explicit_pde/hopf.txt");
+//	double a = -5, b=10;
+//	double t0 = 0, t1 = 1.1;
+//	double h_x = 0.011, tau = 0.001;
+//
+//	TimeLayer2D* TLs = solve_hopf(&u_0_t, &u_1_t, &u_x_0, a, b, t0, t1, h_x, tau);
+//	print_TimeLayer2D_array_to_file(TLs, (t1-t0)/tau, (b-a)/h_x, "./src/explicit_pde/hopf.txt");
 
 	/*
 	 * Задача 13
@@ -232,6 +247,14 @@ int main() {
 //	power_spectrum = spectral_power(sample, N, L);
 //	print_point_array_to_file(power_spectrum, N, "./src/dft/dft_hann.txt");
 //	print_point_array_to_console(sample, N);
+
+
+	/*
+	 * Персональное задание
+	 */
+
+//	TimeLayer3D* layers = locally_1D_solve_in_square(1, &f_x, &f_x, &f_y, &f_y, &u_i, 0.1, 0.1, 0.01, 1.5, 0.1);
+//	print_TimeLayer3D_array_to_file(layers, 15+1,"./src/pde/heat.txt");
 
 	return 0;
 }

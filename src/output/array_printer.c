@@ -106,3 +106,37 @@ void print_TimeLayer2D_array_to_file(TimeLayer2D* TLs, int length_t, int length_
 
 
 }
+
+void print_TimeLayer3D_array_to_file(TimeLayer3D* TLs, int length_t, char* filename) {
+		int n, n_x, n_y;
+		FILE* fp = fopen(filename, "w");
+
+	fprintf(fp, "({");
+	for (n=0; n<length_t; n++) {
+		fprintf(fp, "%f:", TLs[n].t);
+		fprintf(fp, "array([");
+		for (n_x=0; n_x<TLs[n].layer3D.steps_x; n_x++) {
+			fprintf(fp, "[");
+			for(n_y=0; n_y<TLs[n].layer3D.steps_y; n_y++) {
+				fprintf(fp, "%f, ", TLs[n].layer3D.values[n_x][n_y]);
+			}
+			fprintf(fp, "], ");
+		}
+		fprintf(fp, "]), ");
+
+	}
+	fprintf(fp, "},\n ");
+
+	fprintf(fp, "array([");
+	for (n_x=0; n_x<TLs[0].layer3D.steps_x; n_x++) {
+		fprintf(fp, "%f, ", TLs[0].layer3D.x_0+n_x*TLs[0].layer3D.h_x);
+	}
+	fprintf(fp, "]),\n ");
+
+	fprintf(fp, "array([");
+	for (n_y=0; n_y<TLs[0].layer3D.steps_x; n_y++) {
+		fprintf(fp, "%f, ", TLs[0].layer3D.y_0+n_y*TLs[0].layer3D.h_y);
+	}
+	fprintf(fp, "]) )");
+
+}

@@ -10,7 +10,7 @@
 
 #include "../aux.h"
 
-Vector2D vec_newton_solve(VecMathFuncPointer2D f, Vector2D V_0);
+Vector vec_newton_solve(VecMathFuncPointer2D f, Vector V_0);
 
 
 #endif /* VEC_SOLVE_H_ */
