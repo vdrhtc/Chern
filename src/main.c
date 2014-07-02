@@ -37,7 +37,7 @@ double f2(double x) {
 }
 
 double f3(double x) {
-	return (1+exp(-x))/(1+pow(x,(3./2.)));
+	return (2*exp(1-1/x/x)+2)/(pow(x,3)+pow(-x*x+1, 3./2.));
 }
 
 double f4(double x) {
@@ -142,42 +142,42 @@ int main() {
 	 * Задача 3
 	 */
 
-//	bisec_solve(-1, 1);
-
-//	iter_solve(-1);
-
-//	newton_solve(-0.1);
+//	bisec_solve(-.1, .1);
+//
+//	iter_solve(-0);
+//
+//	newton_solve(0.1);
 
 	/*
 	 * Задача 4
 	 */
-//	traps_integrate(16, &f1, 0, -1, 1);
-//	simps_integrate(16, &f1, 0, -1, 1);
-//	print_point_array_to_file(get_I_traps_against_N(40,&f1,-1, 1), 40,"./src/integration/traps.txt");
+//	traps_integrate(16000000, &f1, 0, -1, 1);
+//	simps_integrate(16000, &f1, 0, -1, 1);
+//	print_point_array_to_file(get_I_traps_against_N(101,&f1,-1, 1), 100,"./src/integration/traps.txt");
+//	print_point_array_to_file(get_I_simps_against_N(202,&f1,-1, 1), 100,"./src/integration/simps.txt");
+//	traps_integrate(200, exp, 0, 0, 5);
 
 	/*
 	 * Задача 5
 	 */
-//	double I_2 = simps_integrate(16, &f2, 1, 0.000001, 1);
+//	double I_2 = simps_integrate(10000, &f2, 1, 0.00000000001, 1);
 //	printf("I_simps = I_1 + I_2 = 2*3/2*x^(2/3)|0, 1 + I= 3 %f = %.16f", I_2, 3+I_2);
 
 	/*
 	 * Задача 6
 	 */
-//	double b = 1e3;
-//	double I_1 = simps_integrate(16*b, &f3, 1,  0, b);
-//	double I_2 = 2./pow(b, 1./2.);
-//	printf("I = I_1 + I_2 = %.10e + %.10e = %.16f", I_1, I_2, I_1+I_2);
 
+
+//	simps_integrate(10000, &f3, 0, 0,1);
 	/*
 	 * Задача 7
 	 */
 
 //		double points[] = {0 ,3.14*1/16, 3.14*2/16, 3.14*3/16, 3.14*4/16};
 //		int steps = 100;
-//
-//	Point2D* data = interpolate(&cos,4, points, 0, M_PI/4, steps);
-//
+////
+//	Point2D* data = interpolate(&cos,4, points, -.5, 1.2, steps);
+////
 //	print_point_array_to_file(data, steps, "./src/interpolation_polynomial/interpolation_data.txt");
 
 	/*

@@ -33,10 +33,10 @@ void newton_solve(double x_0) {
 
 		if(sanity_check_counter >= 10000)
 		{
-			printf("Method does not converge");
+			printf("Method does not converge\n");
 			return;
 		}
-		printf("Approximate solution (precision to machine epsilon): %.16f", x_next);
+		printf("Approximate solution (precision to machine epsilon): %.16f\n", x_next);
 }
 
 void iter_solve(double x_0) {
@@ -56,10 +56,10 @@ void iter_solve(double x_0) {
 
 	if(sanity_check_counter >= 10000)
 	{
-		printf("Method does not converge");
+		printf("Method does not converge\n");
 		return;
 	}
-	printf("Approximate solution (precision to machine epsilon): %.16f", x_next);
+	printf("Approximate solution (precision to machine epsilon): %.16f\n", x_next);
 }
 
 
@@ -67,7 +67,7 @@ void bisec_solve(double xmin, double xmax) {
 
 
 	if (f(xmin) * f(xmax) > 0) {
-		printf("There is possibly no solution in (%f, %f) , try other interval",
+		printf("There is possibly no solution in (%f, %f) , try other interval\n",
 				xmin, xmax);
 		return;
 	}
@@ -93,5 +93,5 @@ void bisec_solve(double xmin, double xmax) {
 	} while (fabs(middle - last_middle) > 2e-17);
 
 
-	printf("Approximate solution (precision to machine epsilon): %.16f", middle);
+	printf("Approximate solution (precision to machine epsilon): %.16f\n", middle);
 }

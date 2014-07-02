@@ -39,11 +39,11 @@ double lagrange_polynomial(double x, MathFuncPointer f, int degree,
 Point2D* interpolate(MathFuncPointer f, int degree, double* points, double a, double b, int steps) {
 
 		Point2D* data = calloc(steps, sizeof(Point2D));
-		double step = 3.14*4/16/steps;
-		double x=0;
+		double step = (b-a)/steps;
+		double x=a;
 		int i=0;
 
-	while(x<3.14*4/16) {
+	while(x<b) {
 		Point2D XY;
 		XY.x1 = x;
 		XY.x2 = lagrange_polynomial(x, f, 4, points);
