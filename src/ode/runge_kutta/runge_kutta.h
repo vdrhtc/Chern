@@ -8,7 +8,7 @@
 #ifndef RUNGE_KUTTA_H_
 #define RUNGE_KUTTA_H_
 
-double ** runge_kutta_solve(double, double, int, MathFuncPointer);
+Point2D* runge_kutta_solve(double, double, int, MathFuncPointer);
 
 
 

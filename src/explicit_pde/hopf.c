@@ -3,8 +3,8 @@
 #include<stdlib.h>
 #include "../aux.h"
 
-TimeLayer2D build_next_layer(MathFuncPointer u_0_t, MathFuncPointer u_1_t, TimeLayer2D* TLs, double a,
-		int steps_x, double h_x, double t, double tau, int layer_number) {
+TimeLayer2D build_next_layer(MathFuncPointer u_0_t, MathFuncPointer u_1_t, TimeLayer2D pTL, double a,
+		int steps_x, double h_x, double t, double tau) {
 
 		int m;
 		TimeLayer2D nextTL;
@@ -18,9 +18,9 @@ TimeLayer2D build_next_layer(MathFuncPointer u_0_t, MathFuncPointer u_1_t, TimeL
 
 	for(m=1; m<steps_x-1; m++) {
 		nextTL.layer2D[m].x1 = a+m*h_x;
-		double u_m = TLs[layer_number-1].layer2D[m].x2;
-		double u_m_1 = TLs[layer_number-1].layer2D[m-1].x2;
-		double u_m_plus_1 = TLs[layer_number-1].layer2D[m+1].x2;
+		double u_m = pTL.layer2D[m].x2;
+		double u_m_1 = pTL.layer2D[m-1].x2;
+		double u_m_plus_1 = pTL.layer2D[m+1].x2;
 
 		nextTL.layer2D[m].x2 = u_m - tau/h_x/6*(u_m*u_m_plus_1 - u_m*u_m_1+u_m_plus_1*u_m_plus_1 -u_m_1*u_m_1);
 	}
@@ -45,16 +45,24 @@ TimeLayer2D build_first_layer(MathFuncPointer u_x_0, double a, int steps_x, doub
 }
 
 TimeLayer2D* solve_hopf(MathFuncPointer u_0_t, MathFuncPointer u_1_t, MathFuncPointer u_x_0,
-		double a, double b, double t0, double t1, double h_x, double tau) {
+		double a, double b, double t0, double t1, double h_x, double tau, double write_interval) {
 
-		int steps_t = (t1-t0)/tau, n;
+		int steps_t = (t1-t0)/tau+1, n;
 		TimeLayer2D* TLs = calloc(steps_t, sizeof(TimeLayer2D));
 		int steps_x = (b-a)/h_x;
+		int write_counter = 1;
 
 	TLs[0] = build_first_layer(u_x_0, a, steps_x, h_x);
+	TimeLayer2D prevTL = TLs[0];
+	TimeLayer2D nextTL;
 
 	for(n=1; n<steps_t; n++) {
-		TLs[n] = build_next_layer(u_0_t, u_1_t, TLs, a, steps_x, h_x, n*tau,tau, n);
+		nextTL = build_next_layer(u_0_t, u_1_t, prevTL, a, steps_x, h_x, n*tau,tau);
+		prevTL = nextTL;
+		if((n % (int) (write_counter*write_interval/tau))==0) {
+			TLs[write_counter] = nextTL;
+			write_counter++;
+		}
 	}
 	return TLs;
 

@@ -19,7 +19,7 @@ Layer3D build_border(Layer3D L) {
 	}
 	for(n_y = 0; n_y<steps_y; n_y++) {
 		L.values[0][n_y] = f_y_0(L.y_0+L.h_y*n_y);
-		L.values[steps_x-1][n_y] = f_x_1(L.y_0+L.h_y*n_y);
+		L.values[steps_x-1][n_y] = f_y_1(L.y_0+L.h_y*n_y);
 	}
 	return L;
 }
@@ -62,7 +62,7 @@ Layer3D build_y_stripe(Layer3D L, Layer3D pL, int n_y) {
 	M.data[steps_x-1][steps_x-1] = 1;
 
 	NDVector stripe = tridiagonal_solve(M, O);
-	for(i=0; i<steps_x; i++) {
+	for(i=1; i<steps_x-1; i++) {
 		L.values[i][n_y] = stripe.data[i];
 	}
 	return L;
@@ -74,7 +74,7 @@ Layer3D build_x_stripe(Layer3D L, Layer3D pL, int n_x) {
 		NDVector O = getNDVector(steps_y);
 		int i;
 
-	O.data[0] = L.values[0][n_x];
+	O.data[0] = L.values[n_x][0];
 	for(i=1; i<steps_y-1; i++) {
 		O.data[i] = (2 - 2*h_y*h_y/tau)*pL.values[n_x][i]-pL.values[n_x][i+1]-pL.values[n_x][i-1];
 	}
@@ -89,7 +89,7 @@ Layer3D build_x_stripe(Layer3D L, Layer3D pL, int n_x) {
 	M.data[steps_y-1][steps_y-1] = 1;
 
 	NDVector stripe = tridiagonal_solve(M, O);
-	for(i=0; i<steps_y; i++) {
+	for(i=1; i<steps_y-1; i++) {
 		L.values[n_x][i] = stripe.data[i];
 	}
 	return L;

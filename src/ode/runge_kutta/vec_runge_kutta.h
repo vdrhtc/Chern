@@ -9,6 +9,6 @@
 #define VEC_RUNGE_KUTTA_H_
 
 ParametricPoint2D* vec_runge_kutta_solve(double, double, int,
-		VecMathFuncPointer2D);
+		VecMathFuncPointer2D, Vector U_0);
 
 #endif /* VEC_RUNGE_KUTTA_H_ */

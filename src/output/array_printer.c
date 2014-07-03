@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "array_printer.h"
 #include<stdlib.h>
-
+#include <errno.h>
 Point2D* zip(double * X, double *Y, int minLen) {
 		int i;
 		Point2D* A = calloc(minLen, sizeof(Point2D));
@@ -35,21 +35,38 @@ void print_point_to_file(Point2D point, FILE *fp) {
 	fprintf(fp, "(%f, %.16f)", point.x1, point.x2);
 }
 
+void print_point_array_to_file_pointer(Point2D* points, int length, FILE* fp) {
+		int i;
+
+	fprintf(fp, "[");
+		for (i = 0; i < length; i++) {
+			if (i != 0)
+				fprintf(fp, ", ");
+			print_point_to_file(points[i], fp);
+
+		}
+	fprintf(fp, "]");
+}
+
 void print_point_array_to_file(Point2D* points, int length,
+		char * filename) {
+
+		FILE* fp = fopen(filename, "w");
+		print_point_array_to_file_pointer(points, length, fp);
+}
+
+void print_tuple_of_point_arrays_to_file(Point2DArray* points, int amount,
 		char * filename) {
 
 		int i;
 		FILE* fp = fopen(filename, "w");
 
-	fprintf(fp, "[");
-	for (i = 0; i < length; i++) {
-		if (i != 0)
-			fprintf(fp, ", ");
-		print_point_to_file(points[i], fp);
-
+	fprintf(fp, "(");
+	for(i=0; i<amount; i++) {
+		print_point_array_to_file_pointer(points[i].points, points[i].length, fp);
+		fprintf(fp, ",\n ");
 	}
-
-	fprintf(fp, "]");
+	fprintf(fp, ")");
 }
 
 void print_parametric_point_to_file(ParametricPoint2D point,
@@ -63,6 +80,8 @@ void print_parametric_point_array_to_file(ParametricPoint2D* points,
 
 		int i;
 		FILE* fp = fopen(filename, "w");
+		if(fp==NULL)
+			printf("%d", errno);
 
 	fprintf(fp, "[");
 	for (i = 0; i < length; i++) {
@@ -75,21 +94,6 @@ void print_parametric_point_array_to_file(ParametricPoint2D* points,
 	fprintf(fp, "]");
 }
 
-void print_point_array_to_file_pointer(Point2D* points, int length,
-		FILE* fp) {
-
-		int i;
-
-	fprintf(fp, "[");
-	for (i = 0; i < length; i++) {
-		if (i != 0)
-			fprintf(fp, ", ");
-		print_point_to_file(points[i], fp);
-
-	}
-
-	fprintf(fp, "]");
-}
 
 void print_TimeLayer2D_array_to_file(TimeLayer2D* TLs, int length_t, int length_x, char* filename) {
 
@@ -115,9 +119,9 @@ void print_TimeLayer3D_array_to_file(TimeLayer3D* TLs, int length_t, char* filen
 	for (n=0; n<length_t; n++) {
 		fprintf(fp, "%f:", TLs[n].t);
 		fprintf(fp, "array([");
-		for (n_x=0; n_x<TLs[n].layer3D.steps_x; n_x++) {
+		for(n_y=0; n_y<TLs[n].layer3D.steps_y; n_y++) {
 			fprintf(fp, "[");
-			for(n_y=0; n_y<TLs[n].layer3D.steps_y; n_y++) {
+			for (n_x=0; n_x<TLs[n].layer3D.steps_x; n_x++) {
 				fprintf(fp, "%f, ", TLs[n].layer3D.values[n_x][n_y]);
 			}
 			fprintf(fp, "], ");

@@ -22,10 +22,10 @@ Vector imp_vec_euler_solution(Vector lastX, VecMathFuncPointer2D f) {
 }
 
 ParametricPoint2D* imp_vec_euler_solve(double t1, double t2, int steps,
-		VecMathFuncPointer2D F) {
+		VecMathFuncPointer2D F, Vector U_0) {
 
-		double t = 0;
-		Vector lastX; lastX.x1 = 2; lastX.x2 = 1;
+		double t = t1;
+		Vector lastX; lastX.x1 = U_0.x1; lastX.x2 = U_0.x2;
 		ParametricPoint2D* answer = calloc(steps, sizeof(ParametricPoint2D));
 		double step = time_step = (t2 - t1) / steps;
 		int i = 0;

@@ -9,26 +9,21 @@ double runge_kutta_solution(double t, double lastT, double lastX, MathFuncPointe
 }
 
 
-double** runge_kutta_solve(double a, double b, int steps, MathFuncPointer f) {
-	double t, lastX = 1, lastT = 0;
-			double * Xs = calloc(steps, sizeof(double));
-			double * Ts = calloc(steps, sizeof(double));
-			double ** answer = calloc(2, sizeof(double*));
-			double step = (b-a)/steps;
-			int i = 0;
+Point2D* runge_kutta_solve(double a, double b, int steps, MathFuncPointer f) {
+		double t=0, lastX = 1, lastT = 0;
+		Point2D* points = calloc(steps, sizeof(Point2D));
+		double step = (b-a)/steps;
+		int i = 0;
 
-		Xs[i] = lastX;
-		Ts[i] = lastT;
-		while(t < b-step) {
-			i++;
-			t+=step;
-			lastX = runge_kutta_solution(t, lastT, lastX, f);
-			Xs[i] = lastX;
-			lastT = t;
-			Ts[i] = lastT;
-
-		}
-		answer[0] = Xs;
-		answer[1] = Ts;
-		return answer;
+	points[i].x2 = lastX;
+	points[i].x1 = lastT;
+	while(t < b-step) {
+		i++;
+		t+=step;
+		lastX = runge_kutta_solution(t, lastT, lastX, f);
+		points[i].x2 = lastX;
+		lastT = t;
+		points[i].x1 = lastT;
+	}
+	return points;
 }

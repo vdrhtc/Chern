@@ -22,6 +22,11 @@ typedef struct {
 } Point2D;
 
 typedef struct {
+	Point2D* points;
+	int length;
+} Point2DArray;
+
+typedef struct {
 	double x1;
 	double x2;
 	double x3;

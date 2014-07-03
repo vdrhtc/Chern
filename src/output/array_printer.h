@@ -18,6 +18,7 @@ typedef void (*PointPrinter)(Point2D);
 void print_point_to_console(Point2D);
 void print_point_array_to_console(Point2D*, int);
 void print_point_array_to_file(Point2D*, int, char *);
+void print_tuple_of_point_arrays_to_file(Point2DArray* points, int amount, char*);
 void print_parametric_point_array_to_file(ParametricPoint2D* ,
 		int , char * );
 Point2D* zip(double *, double *, int);
