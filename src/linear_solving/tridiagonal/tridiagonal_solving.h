@@ -10,5 +10,5 @@
 
 LinearSystem elimination(SquareMatrix M, NDVector ordinal);
 NDVector tridiagonal_solve(SquareMatrix M, NDVector ordinal);
-
+LinearSystem discreteSin(double h, double a, double b);
 #endif /* TRIDIAGONAL_SOLVING_H_ */

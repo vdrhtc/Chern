@@ -3,6 +3,31 @@
 #include "../../aux.h"
 #include "../../output/matrix_printer.h"
 
+LinearSystem discreteSin(double h, double a, double b) {
+
+		int steps = round((b-a)/h)+1;
+		int i, dimension=steps;
+		SquareMatrix M = getSquareMatrix(dimension);
+		NDVector V = getNDVector(dimension);
+
+	V.data[0] = -sin(a);
+	for (i=1; i<dimension-1; i++) {
+		V.data[i] = 0;
+	}
+	V.data[dimension-1] = -sin(b);
+
+	M.data[0][0] = 1;
+	for (i=1; i<dimension-1; i++) {
+		M.data[i][i-1] = 1;
+		M.data[i][i] = -2+h*h;
+		M.data[i][i+1] = 1;
+	}
+	M.data[dimension-1][dimension-1] = 1;
+	LinearSystem L;
+	L.M = M;
+	L.V = V;
+	return L;
+}
 
 LinearSystem elimination(SquareMatrix M, NDVector ordinal) {
 

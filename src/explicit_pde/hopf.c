@@ -22,7 +22,11 @@ TimeLayer2D build_next_layer(MathFuncPointer u_0_t, MathFuncPointer u_1_t, TimeL
 		double u_m_1 = pTL.layer2D[m-1].x2;
 		double u_m_plus_1 = pTL.layer2D[m+1].x2;
 
-		nextTL.layer2D[m].x2 = u_m - tau/h_x/6*(u_m*u_m_plus_1 - u_m*u_m_1+u_m_plus_1*u_m_plus_1 -u_m_1*u_m_1);
+//		nextTL.layer2D[m].x2 = u_m - tau/h_x/6*(u_m*u_m_plus_1 - u_m*u_m_1+u_m_plus_1*u_m_plus_1 -u_m_1*u_m_1);
+//		nextTL.layer2D[m].x2 = u_m - tau/h_x/2*(u_m_plus_1 -u_m_1)*u_m;
+		nextTL.layer2D[m].x2 = u_m - tau/h_x/4*(u_m_plus_1*u_m_plus_1-u_m_1*u_m_1);
+
+
 	}
 
 	return nextTL;

@@ -79,7 +79,7 @@ LinearSystem fillTridiagonalMatrixAndOrdinal(MathFuncPointer rightPart, double h
 	for (i=1; i<dimension-1; i++) {
 		V.data[i] = h*h*rightPart(a+i*h);
 	}
-	V.data[dimension-1] = 0;
+	V.data[dimension-1] = -1;
 
 	M.data[0][0] = 1;
 	for (i=1; i<dimension-1; i++) {
@@ -146,11 +146,11 @@ int main() {
 	 * Задача 3
 	 */
 
-//	bisec_solve(-.1, .1);
-//
-//	iter_solve(-0);
-//
-//	newton_solve(0.1);
+	bisec_solve(-.1, .1);
+
+	iter_solve(0.1);
+
+	newton_solve(0.1);
 
 	/*
 	 * Задача 4
@@ -231,12 +231,13 @@ int main() {
 	 *Задача 11
 	 */
 //
-//	double a = 0, b = M_PI;
+//	double a = 0, b = M_PI/2;
 //	int i;
-//	double h = M_PI/100;
+//	double h = M_PI/1000;
 //	int steps = round((b-a)/h)+1;
 //
-//	LinearSystem L = fillTridiagonalMatrixAndOrdinal(sin, h, a, b);
+//	LinearSystem L = discreteSin(h, a, b);
+////	LinearSystem L = fillTridiagonalMatrixAndOrdinal(sin,h,a,b);
 //	NDVector u_s = tridiagonal_solve(L.M, L.V);
 //
 //	double* x_s = calloc(steps, sizeof(double));
@@ -244,7 +245,7 @@ int main() {
 //		x_s[i] = i*h;
 //
 //	printf("%.16f", x_s[steps-1]);
-//	print_point_array_to_file(zip(x_s, u_s.data, u_s.dimension), u_s.dimension, "./src/linear_solving/sin.txt");
+//	print_point_array_to_file(zip(x_s, u_s.data, u_s.dimension), u_s.dimension, "./src/linear_solving/discr_sin.txt");
 
 
 	/*
@@ -262,16 +263,16 @@ int main() {
 	 * Задача 13
 	 */
 
-	int N = 1024;
-	double L = 2*M_PI;
-	Point2D* sample = make_sample_rect_window(modified_sin, N, -L/2, L);
-	Point2D* power_spectrum = spectral_power(sample, N, L);
-	print_point_array_to_file(power_spectrum, N, "./src/dft/dft_rect.txt");
-
-	sample = make_sample_hann_window(modified_sin, N, -L/2, L);
-	power_spectrum = spectral_power(sample, N, L);
-	print_point_array_to_file(power_spectrum, N, "./src/dft/dft_hann.txt");
-	print_point_array_to_console(sample, N);
+//	int N = 1024;
+//	double L = 2*M_PI;
+//	Point2D* sample = make_sample_rect_window(modified_sin, N, -L/2, L);
+//	Point2D* power_spectrum = spectral_power(sample, N, L);
+//	print_point_array_to_file(power_spectrum, N, "./src/dft/dft_rect.txt");
+//
+//	sample = make_sample_hann_window(modified_sin, N, -L/2, L);
+//	power_spectrum = spectral_power(sample, N, L);
+//	print_point_array_to_file(power_spectrum, N, "./src/dft/dft_hann.txt");
+//	print_point_array_to_console(sample, N);
 
 
 	/*

@@ -13,7 +13,7 @@ static double f_newton(double x) {
 }
 
 static double f_iter(double x) {
-	return x-f(x);
+	return x-.10*f(x);
 }
 
 
